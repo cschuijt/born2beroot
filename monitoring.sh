@@ -8,12 +8,12 @@ echo -n "#vCPUs: "
 cat /proc/cpuinfo | grep processor | wc -l
 
 echo -n "#Memory Usage: "
-free --mega | grep 'Mem:' | awk '{printf ("%d MB free, %d MB total (%.2f%%)", $2, $4, $2/$4*100)}'
+free --mega | grep 'Mem:' | awk '{printf ("%d MB free, %d MB total (%.2f%%)\n", $2, $4, $2/$4*100)}'
 
 echo -n "#Disk Usage (/): "
-df -h | grep 'cschuijt42--vg-root' | awk '{printf ("%s used of %s (%.2f%%)", $3, $2, $5)}' 
+df -h | grep 'cschuijt42--vg-root' | awk '{printf ("%s used of %s (%.2f%%)\n", $3, $2, $5)}' 
 echo -n "#Disk Usage (/home): "
-df -h | grep 'cschuijt42--vg-home' | awk '{printf ("%s used of %s (%.2f%%)", $3, $2, $5)}' 
+df -h | grep 'cschuijt42--vg-home' | awk '{printf ("%s used of %s (%.2f%%)\n", $3, $2, $5)}' 
 
 echo -n "#CPU Load: "
 mpstat | grep 'all' | awk '{printf("%.2f%%\n", 100-$13)}'
@@ -22,7 +22,7 @@ echo -n "#Last boot: "
 who -b | awk '{print ($3, "at", $4)}'
 
 echo -n "#LVM Use: "
-if [[ cat /etc/fstab | grep 'root' == /dev/mapper* ]]
+if cat /etc/fstab | grep 'root' | grep -q /dev/mapper;
 then
 echo "yes"
 else
