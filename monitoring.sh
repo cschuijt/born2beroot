@@ -7,16 +7,16 @@ nproc --all
 echo -n "#vCPUs: "
 cat /proc/cpuinfo | grep processor | wc -l
 
+echo -n "#CPU Load: "
+mpstat | grep 'all' | awk '{printf("%.2f%%\n", 100-$13)}'
+
 echo -n "#Memory Usage: "
-free --mega | grep 'Mem:' | awk '{printf ("%d MB free, %d MB total (%.2f%%)\n", $2, $4, $2/$4*100)}'
+free --mega | grep 'Mem:' | awk '{printf ("%d MB available, %d MB total (%.2f%%)\n", $7, $2, $7/$2*100)}'
 
 echo -n "#Disk Usage (/): "
 df -h | grep 'cschuijt42--vg-root' | awk '{printf ("%s used of %s (%.2f%%)\n", $3, $2, $5)}' 
 echo -n "#Disk Usage (/home): "
 df -h | grep 'cschuijt42--vg-home' | awk '{printf ("%s used of %s (%.2f%%)\n", $3, $2, $5)}' 
-
-echo -n "#CPU Load: "
-mpstat | grep 'all' | awk '{printf("%.2f%%\n", 100-$13)}'
 
 echo -n "#Last boot: "
 who -b | awk '{print ($3, "at", $4)}'
