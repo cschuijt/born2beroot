@@ -19,7 +19,7 @@ echo -n "#Disk Usage (/home): "
 df -h | grep 'cschuijt42--vg-home' | awk '{printf ("%s used of %s (%.2f%%)\n", $3, $2, $5)}'
 
 echo -n "#Disk Usage (total): "
-df -h | awk '{t += $2; u += $3} END {printf ("%.2fGB used, %.2fGB total (%.2f%%)\n", u, t, u/t*100)}'
+df -m | awk '{t += $2; u += $3} END {printf ("%.2fGB used, %.2fGB total (%.2f%%)\n", u/1024, t/1024, u/t*100)}'
 
 echo -n "#Last boot: "
 who -b | awk '{print ($3, "at", $4)}'
