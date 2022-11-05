@@ -22,7 +22,7 @@ echo -n "#Last boot: "
 who -b | awk '{print ($3, "at", $4)}'
 
 echo -n "#LVM Use: "
-if [[cat /etc/fstab | grep 'root' == /dev/mapper* ]]
+if [[ cat /etc/fstab | grep 'root' == /dev/mapper* ]]
 then
 echo "yes"
 else
